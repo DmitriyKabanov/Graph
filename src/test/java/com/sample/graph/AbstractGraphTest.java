@@ -17,6 +17,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.MockitoAnnotations.initMocks;
 
 public class AbstractGraphTest extends BaseGraphTest {
+
     @Mock
     private SearchStrategy<Integer> mockedSearchStrategy;
 
@@ -33,7 +34,13 @@ public class AbstractGraphTest extends BaseGraphTest {
 
     @Test(expected = VertexNotFoundException.class)
     public void shouldThrowVertexNotFoundException() {
-        graph.edgesOf(1);
+        try {
+            graph.edgesOf(INVALID_VERTEX);
+        } catch (VertexNotFoundException exception){
+            assertEquals("Vertex: " + INVALID_VERTEX.toString() + " you're trying to access does not exist in the graph", exception.getMessage());
+            throw exception;
+        }
+
     }
 
     @Test

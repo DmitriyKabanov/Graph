@@ -1,7 +1,7 @@
-package com.sample.search;
+package com.sample.graph.search;
 
 import com.sample.graph.Graph;
-import com.sample.model.Edge;
+import com.sample.graph.model.Edge;
 
 import java.util.*;
 

@@ -1,4 +1,4 @@
-package com.sample.exception;
+package com.sample.graph.exception;
 
 public class VertexNotFoundException extends RuntimeException {
     public VertexNotFoundException(String vertexDetails) {

@@ -1,4 +1,4 @@
-package com.sample.model;
+package com.sample.graph.model;
 
 public interface Edge<T> {
     T getSourceVertex();

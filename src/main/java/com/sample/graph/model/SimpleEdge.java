@@ -1,4 +1,4 @@
-package com.sample.model;
+package com.sample.graph.model;
 
 public class SimpleEdge<T> implements Edge<T> {
     private final T sourceVertex;

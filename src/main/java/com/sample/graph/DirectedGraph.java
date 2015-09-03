@@ -1,6 +1,6 @@
 package com.sample.graph;
 
-import com.sample.model.SimpleEdge;
+import com.sample.graph.model.SimpleEdge;
 
 public class DirectedGraph<T> extends AbstractGraph<T> {
     @Override

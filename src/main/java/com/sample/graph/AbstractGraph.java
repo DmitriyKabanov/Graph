@@ -1,8 +1,8 @@
 package com.sample.graph;
 
-import com.sample.exception.VertexNotFoundException;
-import com.sample.model.Edge;
-import com.sample.search.SearchStrategy;
+import com.sample.graph.exception.VertexNotFoundException;
+import com.sample.graph.model.Edge;
+import com.sample.graph.search.SearchStrategy;
 
 import java.util.*;
 

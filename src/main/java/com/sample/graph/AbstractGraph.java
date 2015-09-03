@@ -25,7 +25,7 @@ public abstract class AbstractGraph<T> implements Graph<T> {
     @Override
     public Set<Edge<T>> edgesOf(T vertex) {
         if (!isVertexExists(vertex)) {
-            throw new VertexNotFoundException();
+            throw new VertexNotFoundException(vertex.toString());
         }
         return adjacency.get(vertex);
     }

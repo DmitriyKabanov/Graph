@@ -18,4 +18,9 @@ public class SimpleEdge<T> implements Edge<T> {
     public T getTargetVertex() {
         return targetVertex;
     }
+
+    @Override
+    public String toString() {
+        return "Edge [" + sourceVertex+ "->" + targetVertex + ']';
+    }
 }

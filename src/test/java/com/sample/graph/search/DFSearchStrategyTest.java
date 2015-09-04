@@ -1,6 +1,5 @@
 package com.sample.graph.search;
 
-import com.sample.graph.DirectedGraph;
 import com.sample.graph.Graph;
 import com.sample.graph.UndirectedGraph;
 import com.sample.graph.model.Edge;
@@ -17,7 +16,7 @@ import static org.mockito.MockitoAnnotations.initMocks;
 public class DFSearchStrategyTest {
     private Graph<Integer> graph;
 
-    private SearchStrategy<Integer> searchStrategy = new DFSearchStrategy<>();
+    private DFSearcher<Integer> searcher = new DFSearcher<>();
 
     @Before
     public void setUp() {
@@ -33,7 +32,7 @@ public class DFSearchStrategyTest {
         //Given
 
         //When
-        List<Edge<Integer>> result = searchStrategy.search(graph, 1, 5);
+        List<Edge<Integer>> result = searcher.search(graph, 1, 5);
 
         //Then
         assertEquals(Collections.emptyList(), result);
@@ -46,7 +45,7 @@ public class DFSearchStrategyTest {
         graph.addEdge(1, 5);
 
         //When
-        List<Edge<Integer>> result = searchStrategy.search(graph, 1, 5);
+        List<Edge<Integer>> result = searcher.search(graph, 1, 5);
 
         //Then
         assertPathBetweenVertices(result, 1, 5, 1);
@@ -61,7 +60,7 @@ public class DFSearchStrategyTest {
         graph.addEdge(4, 5);
 
         //When
-        List<Edge<Integer>> result = searchStrategy.search(graph, 1, 5);
+        List<Edge<Integer>> result = searcher.search(graph, 1, 5);
 
         //Then
         assertPathBetweenVertices(result, 1, 5, 3);

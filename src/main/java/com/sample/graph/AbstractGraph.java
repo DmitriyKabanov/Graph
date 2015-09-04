@@ -2,13 +2,12 @@ package com.sample.graph;
 
 import com.sample.graph.exception.VertexNotFoundException;
 import com.sample.graph.model.Edge;
-import com.sample.graph.search.SearchStrategy;
+import com.sample.graph.search.DFSearcher;
 
 import java.util.*;
 
 public abstract class AbstractGraph<T> implements Graph<T> {
     private final Map<T, Set<Edge<T>>> adjacency = new HashMap<>();
-    private SearchStrategy<T> searchStrategy;
 
     @Override
     public void addVertex(T vertex) {
@@ -19,7 +18,7 @@ public abstract class AbstractGraph<T> implements Graph<T> {
 
     @Override
     public List<Edge<T>> getPath(T sourceVertex, T targetVertex) {
-        return searchStrategy.search(this, sourceVertex, targetVertex);
+        return new DFSearcher<T>().search(this, sourceVertex, targetVertex);
     }
 
     @Override
@@ -28,11 +27,6 @@ public abstract class AbstractGraph<T> implements Graph<T> {
             throw new VertexNotFoundException(vertex.toString());
         }
         return adjacency.get(vertex);
-    }
-
-    @Override
-    public void setStrategy(SearchStrategy<T> searchStrategy) {
-        this.searchStrategy = searchStrategy;
     }
 
     private boolean isVertexExists(T vertex) {

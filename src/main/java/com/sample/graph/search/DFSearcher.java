@@ -5,10 +5,9 @@ import com.sample.graph.model.Edge;
 
 import java.util.*;
 
-public class DFSearchStrategy<T> implements SearchStrategy<T> {
+public class DFSearcher<T> {
     private final Set<T> visitedVertices = new HashSet<>();
 
-    @Override
     public List<Edge<T>> search(Graph<T> graph, T sourceVertex, T targetVertex) {
         visitedVertices.clear();
         visitedVertices.add(sourceVertex);

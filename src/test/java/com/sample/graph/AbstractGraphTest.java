@@ -3,10 +3,13 @@ package com.sample.graph;
 import com.sample.graph.exception.VertexNotFoundException;
 import com.sample.graph.model.Edge;
 import com.sample.graph.model.SimpleEdge;
-import com.sample.graph.search.SearchStrategy;
+import com.sample.graph.search.DFSearcher;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mock;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
 
 import java.util.Collections;
 import java.util.Set;
@@ -15,14 +18,18 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.MockitoAnnotations.initMocks;
+import static org.powermock.api.mockito.PowerMockito.verifyNew;
+import static org.powermock.api.mockito.PowerMockito.whenNew;
 
+@RunWith(PowerMockRunner.class)
+@PrepareForTest(AbstractGraph.class)
 public class AbstractGraphTest extends BaseGraphTest {
 
     @Mock
-    private SearchStrategy<Integer> mockedSearchStrategy;
+    private DFSearcher<Integer> mockedSearcher;
 
     @Before
-    public void setUp() {
+    public void setUp() throws Exception {
         initMocks(this);
         graph = new AbstractGraph<Integer>() {
             @Override
@@ -71,14 +78,15 @@ public class AbstractGraphTest extends BaseGraphTest {
     }
 
     @Test
-    public void shouldGetPathBetweenTwoVertices() {
+    public void shouldGetPathBetweenTwoVertices() throws Exception {
         //Given
-        graph.setStrategy(mockedSearchStrategy);
+        whenNew(DFSearcher.class).withNoArguments().thenReturn(mockedSearcher);
 
         //When
         graph.getPath(SOURCE_VERTEX, TARGET_VERTEX);
 
         //Then
-        verify(mockedSearchStrategy, times(1)).search(graph, SOURCE_VERTEX, TARGET_VERTEX);
+        verifyNew(DFSearcher.class).withNoArguments();
+        verify(mockedSearcher, times(1)).search(graph, SOURCE_VERTEX, TARGET_VERTEX);
     }
 }

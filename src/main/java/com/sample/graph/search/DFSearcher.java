@@ -18,7 +18,6 @@ public class DFSearcher<T> {
         Set<Edge<T>> edges = graph.edgesOf(sourceVertex);
         for (Edge<T> edge : edges) {
             T vertex = edge.getTargetVertex();
-
             if (visitedVertices.contains(vertex)) {
                 continue;
             }
@@ -26,12 +25,21 @@ public class DFSearcher<T> {
             if (targetVertex.equals(vertex)) {
                 path.add(edge);
                 return path;
-            } else if (graph.edgesOf(vertex).size() > 0) {
+            } else if(hasUnvisitedChild(graph, vertex)) {
                 path.add(edge);
                 visitedVertices.add(vertex);
                 return dfs(graph, vertex, targetVertex, path);
             }
         }
         return Collections.emptyList();
+    }
+
+    private boolean hasUnvisitedChild(Graph<T> graph, T vertex) {
+        for (Edge<T> edge : graph.edgesOf(vertex)) {
+            if (!visitedVertices.contains(edge.getTargetVertex())) {
+                return true;
+            }
+        }
+        return false;
     }
 }

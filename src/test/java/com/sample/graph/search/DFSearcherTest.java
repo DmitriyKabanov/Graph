@@ -4,7 +4,6 @@ import com.sample.graph.Graph;
 import com.sample.graph.UndirectedGraph;
 import com.sample.graph.model.Edge;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.Collections;
@@ -13,9 +12,8 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.MockitoAnnotations.initMocks;
 
-public class DFSearchStrategyTest {
+public class DFSearcherTest {
     private Graph<Integer> graph;
-
     private DFSearcher<Integer> searcher = new DFSearcher<>();
 
     @Before
@@ -27,7 +25,6 @@ public class DFSearchStrategyTest {
     }
 
     @Test
-    @Ignore
     public void shouldReturnEmptyListIfSourceVertexHasNoEdges() {
         //Given
 
@@ -39,7 +36,6 @@ public class DFSearchStrategyTest {
     }
 
     @Test
-    @Ignore
     public void shouldReturnSingleEdgeIfSourceVertexHasDirectEdge() {
         //Given
         graph.addEdge(1, 5);
@@ -48,7 +44,7 @@ public class DFSearchStrategyTest {
         List<Edge<Integer>> result = searcher.search(graph, 1, 5);
 
         //Then
-        assertPathBetweenVertices(result, 1, 5, 1);
+        assertPathBetweenVertices(result, 1, 5);
     }
 
     @Test
@@ -63,13 +59,12 @@ public class DFSearchStrategyTest {
         List<Edge<Integer>> result = searcher.search(graph, 1, 5);
 
         //Then
-        assertPathBetweenVertices(result, 1, 5, 3);
+        assertPathBetweenVertices(result, 1, 5);
     }
 
-    private void assertPathBetweenVertices(List<Edge<Integer>> edges, Integer sourceVertex, Integer targetVertex, int expectedPathSize) {
-        assertEquals(expectedPathSize, edges.size());
+    private void assertPathBetweenVertices(List<Edge<Integer>> edges, Integer sourceVertex, Integer targetVertex) {
         assertEquals(sourceVertex, edges.get(0).getSourceVertex());
-        assertEquals(targetVertex, edges.get(expectedPathSize - 1).getTargetVertex());
+        assertEquals(targetVertex, edges.get(edges.size() - 1).getTargetVertex());
     }
 
     private void populateGraph(Integer... vertices) {

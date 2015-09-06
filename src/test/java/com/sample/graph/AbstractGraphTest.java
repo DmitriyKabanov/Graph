@@ -44,7 +44,7 @@ public class AbstractGraphTest extends BaseGraphTest {
         try {
             graph.edgesOf(INVALID_VERTEX);
         } catch (VertexNotFoundException exception){
-            assertEquals("Vertex: " + INVALID_VERTEX.toString() + " you're trying to access does not exist in the graph", exception.getMessage());
+            assertEquals("Vertex: " + INVALID_VERTEX + " you're trying to access does not exist in the graph", exception.getMessage());
             throw exception;
         }
 

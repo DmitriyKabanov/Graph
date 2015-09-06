@@ -36,6 +36,20 @@ public class DFSearcherTest {
     }
 
     @Test
+    public void shouldReturnEmptyListIfSourceVertexHasNoPathToTargetVertex() {
+        //Given
+        graph.addEdge(1, 3);
+        graph.addEdge(3, 2);
+        graph.addEdge(3, 4);
+
+        //When
+        List<Edge<Integer>> result = searcher.search(graph, 1, 5);
+
+        //Then
+        assertEquals(Collections.emptyList(), result);
+    }
+
+    @Test
     public void shouldReturnSingleEdgeIfSourceVertexHasDirectEdge() {
         //Given
         graph.addEdge(1, 5);

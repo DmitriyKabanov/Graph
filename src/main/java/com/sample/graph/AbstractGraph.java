@@ -18,13 +18,16 @@ public abstract class AbstractGraph<T> implements Graph<T> {
 
     @Override
     public List<Edge<T>> getPath(T sourceVertex, T targetVertex) {
+        if (!isVertexExists(sourceVertex) || !isVertexExists(targetVertex)) {
+            throw new VertexNotFoundException("Both vertices must exist in the graph to find path between them");
+        }
         return new DFSearcher<T>().search(this, sourceVertex, targetVertex);
     }
 
     @Override
     public Set<Edge<T>> edgesOf(T vertex) {
         if (!isVertexExists(vertex)) {
-            throw new VertexNotFoundException(vertex);
+            throw new VertexNotFoundException("Vertex: " + vertex + " you're trying to get edges of, does not exist in the graph");
         }
         return adjacency.get(vertex);
     }

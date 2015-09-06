@@ -40,11 +40,31 @@ public class AbstractGraphTest extends BaseGraphTest {
     }
 
     @Test(expected = VertexNotFoundException.class)
-    public void shouldThrowVertexNotFoundException() {
+    public void shouldThrowVertexNotFoundExceptionIfTryingToGetEdges() {
+        //Given
+
         try {
+            //When
             graph.edgesOf(INVALID_VERTEX);
         } catch (VertexNotFoundException exception){
-            assertEquals("Vertex: " + INVALID_VERTEX + " you're trying to access does not exist in the graph", exception.getMessage());
+            //Then
+            assertEquals("Vertex: " + INVALID_VERTEX + " you're trying to get edges of, does not exist in the graph", exception.getMessage());
+            throw exception;
+        }
+
+    }
+
+    @Test(expected = VertexNotFoundException.class)
+    public void shouldThrowVertexNotFoundExceptionIfTryingToGetPath() {
+        //Given
+        populateGraph(SOURCE_VERTEX);
+
+        try {
+            //When
+            graph.getPath(SOURCE_VERTEX, INVALID_VERTEX);
+        } catch (VertexNotFoundException exception){
+            //Then
+            assertEquals("Both vertices must exist in the graph to find path between them", exception.getMessage());
             throw exception;
         }
 
@@ -80,6 +100,7 @@ public class AbstractGraphTest extends BaseGraphTest {
     @Test
     public void shouldGetPathBetweenTwoVertices() throws Exception {
         //Given
+        populateGraph(SOURCE_VERTEX, TARGET_VERTEX);
         whenNew(DFSearcher.class).withNoArguments().thenReturn(mockedSearcher);
 
         //When

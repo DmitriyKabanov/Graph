@@ -15,8 +15,7 @@ public class DFSearcher<T> {
     }
 
     private List<Edge<T>> dfs(Graph<T> graph, T sourceVertex, T targetVertex, List<Edge<T>> path) {
-        Set<Edge<T>> edges = graph.edgesOf(sourceVertex);
-        for (Edge<T> edge : edges) {
+        for (Edge<T> edge : graph.edgesOf(sourceVertex)) {
             T vertex = edge.getTargetVertex();
             if (visitedVertices.contains(vertex)) {
                 continue;

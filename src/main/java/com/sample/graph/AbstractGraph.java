@@ -11,14 +11,14 @@ public abstract class AbstractGraph<T> implements Graph<T> {
 
     @Override
     public void addVertex(T vertex) {
-        if (isVertexNotExists(vertex)) {
+        if (isVertexNotExist(vertex)) {
             adjacency.put(vertex, new HashSet<Edge<T>>());
         }
     }
 
     @Override
     public List<Edge<T>> getPath(T sourceVertex, T targetVertex) {
-        if (isVertexNotExists(sourceVertex) || isVertexNotExists(targetVertex)) {
+        if (isVertexNotExist(sourceVertex) || isVertexNotExist(targetVertex)) {
             throw new VertexNotFoundException("Both vertices must exist in the graph to find path between them");
         }
         return new DFSearcher<T>().search(this, sourceVertex, targetVertex);
@@ -26,13 +26,13 @@ public abstract class AbstractGraph<T> implements Graph<T> {
 
     @Override
     public Set<Edge<T>> edgesOf(T vertex) {
-        if (isVertexNotExists(vertex)) {
+        if (isVertexNotExist(vertex)) {
             throw new VertexNotFoundException("Vertex: " + vertex + " you're trying to get edges of, does not exist in the graph");
         }
         return adjacency.get(vertex);
     }
 
-    private boolean isVertexNotExists(T vertex) {
+    private boolean isVertexNotExist(T vertex) {
         return !adjacency.containsKey(vertex);
     }
 }
